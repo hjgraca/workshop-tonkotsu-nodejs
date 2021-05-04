@@ -4,7 +4,7 @@ name: Build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, main ]
 #   pull_request:
 #     branches: [ master ]
 
@@ -12,6 +12,7 @@ on:
 
 jobs:
   build:
+    name: Build Application
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -19,7 +20,11 @@ jobs:
 
       - name: Run NPM Install
         run: |
-          npm install
+          npm ci
+      
+      - name: Run NPM Build
+        run: | 
+          npm run build --if-present
 
       - name: Run NPM Test
         run: |
